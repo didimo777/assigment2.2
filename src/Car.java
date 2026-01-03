@@ -1,17 +1,25 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
+public class Car extends Vehicle implements Servicable {
 
-        Servicable s1 = new Car("Toyota", 2020, 20000, 4);
-        Servicable s2 = new Bus("Mercedes", 2018, 60000, 50);
+    private int numberOfDoors;
 
-        s1.performService();
-        System.out.println("Service interval: " + s1.getServiceIntervalKm() + " km");
+    public Car(String model, int year, double basePrice, int numberOfDoors) {
+        super(model, year, basePrice);
+        this.numberOfDoors = numberOfDoors;
+    }
 
-        System.out.println();
+    @Override
+    public double calculateInsuranceFee() {
+        return basePrice * 0.05 + getAge() * 100;
+    }
 
-        s2.performService();
-        System.out.println("Service interval: " + s2.getServiceIntervalKm() + " km");
+    @Override
+    public void performService() {
+        System.out.println("Car service performed");
+    }
+
+    @Override
+    public int getServiceIntervalKm() {
+        return 15000;
     }
 }
+
