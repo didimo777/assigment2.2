@@ -1,17 +1,63 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
+public abstract class Vehicle {
 
-        Servicable s1 = new Car("Toyota", 2020, 20000, 4);
-        Servicable s2 = new Bus("Mercedes", 2018, 60000, 50);
+    protected int id;
+    protected static int idGen = 1;
+    protected String model;
+    protected int year;
+    protected double basePrice;
 
-        s1.performService();
-        System.out.println("Service interval: " + s1.getServiceIntervalKm() + " km");
+    public Vehicle(String model, int year, double basePrice) {
+        this.id = idGen++;
+        setModel(model);
+        setYear(year);
+        setBasePrice(basePrice);
+    }
 
-        System.out.println();
+    public String getModel() {
+        return model;
+    }
 
-        s2.performService();
-        System.out.println("Service interval: " + s2.getServiceIntervalKm() + " km");
+    public void setModel(String model) {
+        if (model == null || model.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        this.model = model;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        if (year < 1900 || year > 2025) {
+            throw new IllegalArgumentException();
+        }
+        this.year = year;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        if (basePrice <= 0) {
+            throw new IllegalArgumentException();
+        }
+        this.basePrice = basePrice;
+    }
+
+    public int getAge() {
+        return 2025 - year;
+    }
+
+    public abstract double calculateInsuranceFee();
+
+    @Override
+    public String toString() {
+        return "Vehicle{id=" + id +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                ", basePrice=" + basePrice +
+                '}';
     }
 }
